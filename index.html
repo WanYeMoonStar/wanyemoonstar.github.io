@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Waiting List</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #64b5f6, #e0f7fa); /* 浅蓝色渐变背景 */
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column; /* 垂直居中内容 */
+      height: 100vh;
+      margin: 0;
+    }
+    #waiting-list-title {
+      font-size: 32px;
+      font-weight: bold; /* 文字加粗 */
+      margin-bottom: 20px;
+      color: #fff; /* 白色文字 */
+    }
+    #registration-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #81d4fa; /* 按钮背景色 */
+      color: #fff;
+      font-size: 20px;
+      text-align: center;
+      line-height: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+    }
+    #registration-button:hover {
+      transform: scale(1.1); /* 按钮放大效果 */
+    }
+    #registration-form {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      left: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    input[type="text"], input[type="submit"] {
+      width: calc(100% - 22px); /* 调整输入框宽度，减去边框宽度 */
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    input[type="submit"] {
+      width: 100%;
+      background-color: #81d4fa;
+      color: #fff;
+      cursor: pointer;
+    }
+    #registration-list {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .registered-person {
+      display: inline-block;
+      margin: 5px;
+      padding: 5px 10px;
+      background-color: #81d4fa;
+      color: #ffffff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .copyright {
+      position: fixed;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: #fff; /* 白色文字 */
+    }
+  </style>
+</head>
+<body>
+  <div id="waiting-list-title">Waiting List</div>
+  <div id="registration-button">+</div>
+  <div id="registration-form">
+    <h2>Waiting List</h2>
+    <form id="register">
+      <input type="text" id="name" placeholder="请输入您的名字"><br>
+      <input type="text" id="class" placeholder="请输入您的班级"><br>
+      <input type="submit" value="提交">
+    </form>
+  </div>
+  <div id="registration-list"></div>
+
+  <div class="copyright">
+    &copy; 2023 YourCompany
+  </div>
+
+  <script>
+    document.getElementById('registration-button').addEventListener('click', function() {
+      document.getElementById('registration-form').style.display = 'block';
+    });
+
+    document.getElementById('register').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const className = document.getElementById('class').value;
+      const registrationList = document.getElementById('registration-list');
+      
+      const registeredPerson = document.createElement('div');
+      registeredPerson.classList.add('registered-person');
+      registeredPerson.textContent = `${name} - ${className}`;
+      
+      registeredPerson.addEventListener('click', function() {
+        this.remove();
+      });
+      
+      registrationList.appendChild(registeredPerson);
+      
+      document.getElementById('registration-form').style.display = 'none';
+      // 此处应该向服务器发送数据，存储挂号信息
+      // 可以使用 fetch 或其他适当的方式
+    });
+  </script>
+</body>
+</html>
